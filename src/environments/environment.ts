@@ -1,9 +1,7 @@
-import { config } from 'dotenv';
-
-config();
+import { MAPBOX_ACCESS_TOKEN } from "env";
 
 export const environment = {
     mapbox: {
-        accessToken: process.env['MAPBOX_ACCESS_TOKEN']
+        accessToken: MAPBOX_ACCESS_TOKEN
     }
 };

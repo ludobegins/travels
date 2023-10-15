@@ -10,11 +10,11 @@ import { Map } from 'mapbox-gl';
 export class MapComponent implements OnInit {
 
   private mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
-  private map = new Map();
+  private map: any;
   
   ngOnInit(): void {
     this.mapboxgl.accessToken = environment.mapbox.accessToken;
-    let map = new this.mapboxgl.Map({
+    this.map = new Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11'
     });
