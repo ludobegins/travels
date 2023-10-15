@@ -18,6 +18,7 @@ interface Location {
   country: string,
   tags: string[],
   date: string,
+  postId: number,
 }
 
 interface Locations {
@@ -87,7 +88,7 @@ export class MapComponent implements OnInit {
       popupDivElement.innerHTML = innerHtmlContent;
       popupDivElement.appendChild(openTxtBtn);
       openTxtBtn.addEventListener('click', (e) => {
-        this.openBlogPost(id);
+        this.openBlogPost(this.locations[id].postId);
       });
 
       const marker = new Marker()
@@ -111,8 +112,8 @@ export class MapComponent implements OnInit {
     return url;
   }
 
-  openBlogPost(locationId: string){
-    console.log('id', locationId);
+  openBlogPost(postId: number){
+    console.log('post id', postId);
     this.showBlogPost = true;
   }
 
