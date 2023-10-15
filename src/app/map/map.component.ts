@@ -78,10 +78,20 @@ export class MapComponent implements OnInit {
   async addLocationsMarkers(){
     for (let id of Object.keys(this.locations)){
       const imgUrl = await this.getLocationImgUrl(id);
-      let popupHtml = `<h1>${this.locations[id].name}</h1><img width="200" height="120" src=${imgUrl}> <div>${this.locations[id].description}</div> <h4>Primeira visita: ${this.locations[id].date}<\h4>`
+
+      const innerHtmlContent = `<h1>${this.locations[id].name}</h1><img width="200" height="120" src=${imgUrl}> <div>${this.locations[id].description}</div> <h4>Primeira visita: ${this.locations[id].date}<\h4>`;
+      const popupDivElement = document.createElement('div');
+      const openTxtBtn = document.createElement('div');
+      openTxtBtn.innerHTML = `<button class="btn btn-success btn-simple text-white"> Abrir texto</button>`;
+      popupDivElement.innerHTML = innerHtmlContent;
+      popupDivElement.appendChild(openTxtBtn);
+      openTxtBtn.addEventListener('click', (e) => {
+        this.openBlogPost(id);
+      });
+
       const marker = new Marker()
         .setLngLat([this.locations[id].coordinates.longitude, this.locations[id].coordinates.latitude])
-        .setPopup(new Popup().setHTML(popupHtml))
+        .setPopup(new Popup().setDOMContent(popupDivElement))
         .addTo(this.map);
     }
   };
@@ -98,6 +108,10 @@ export class MapComponent implements OnInit {
 
     let url = await getDownloadURL(ref_storage(this.storage, imgPath))
     return url;
+  }
+
+  openBlogPost(locationId: string){
+    console.log('id', locationId);
   }
 
 }
