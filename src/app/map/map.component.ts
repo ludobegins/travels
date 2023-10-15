@@ -38,17 +38,30 @@ export class MapComponent implements OnInit {
   private storage: any;
   
   async ngOnInit() {
+    this.mapConfig();
+    this.app = initializeApp(firebaseConfig);
+    await this.fetchDbData();
+    await this.addLocationsMarkers();
+  };
+  
+  mapConfig(){
     this.mapboxgl.accessToken = environment.mapbox.accessToken;
     this.map = new Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/outdoors-v11'
     });
     this.map.addControl(new NavigationControl());
-    this.app = initializeApp(firebaseConfig);
-    await this.fetchDbData();
-    this.addLocationsMarkers();
-
-  };
+    this.map.on('style.load', () => {
+      this.map.addSource('mapbox-dem', {
+      'type': 'raster-dem',
+      'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+      'tileSize': 512,
+      'maxzoom': 14
+      });
+      // add the DEM source as a terrain layer with exaggerated height
+      this.map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
+      });
+  }
 
   async fetchDbData() { 
     const db = getDatabase();
