@@ -3,6 +3,24 @@ import { environment } from 'src/environments/environment';
 import { Map, NavigationControl, Marker, Popup } from 'mapbox-gl'
 import { getDatabase, ref, onValue, get, child } from "firebase/database"; // https://firebase.google.com/docs/database/web/start
 
+interface Location {
+  name: string,
+  description: string,
+  coordinates: {
+    latitude: number,
+    longitude: number,
+  },
+  imgs: string[],
+  city: string,
+  country: string,
+  tags: string[],
+  date: string,
+}
+
+interface Locations {
+  [id: string]: Location,
+}
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -11,8 +29,8 @@ import { getDatabase, ref, onValue, get, child } from "firebase/database"; // ht
 export class MapComponent implements OnInit {
 
   private mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
-  private map: any;
-  private locations: any; // tipar depois que definir direito na db
+  private map!: Map;
+  private locations!: Locations;
   
   async ngOnInit() {
     this.mapboxgl.accessToken = environment.mapbox.accessToken;
@@ -38,10 +56,11 @@ export class MapComponent implements OnInit {
   };
 
   addLocationsMarkers(){
-    for (let locationId of Object.keys(this.locations)){
+    for (let id of Object.keys(this.locations)){
+      let popupHtml = `<h1>${this.locations[id].name}</h1> <div>${this.locations[id].description}</div> <h4>Primeira visita: ${this.locations[id].date}<\h4>`
       const marker = new Marker()
-        .setLngLat([this.locations[locationId].coordinates.longitude, this.locations[locationId].coordinates.latitude])
-        .setPopup(new Popup().setHTML("<h1>Hello World!</h1>"))
+        .setLngLat([this.locations[id].coordinates.longitude, this.locations[id].coordinates.latitude])
+        .setPopup(new Popup().setHTML(popupHtml))
         .addTo(this.map);
     }
   };
