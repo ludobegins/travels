@@ -36,11 +36,12 @@ export class MapComponent implements OnInit {
   private locations!: Locations;
   private app: any;
   private storage: any;
+  public showBlogPost: boolean = false;
   
   async ngOnInit() {
     this.mapConfig();
     this.app = initializeApp(firebaseConfig);
-    await this.fetchDbData();
+    await this.fetchLocations();
     await this.addLocationsMarkers();
   };
   
@@ -63,7 +64,7 @@ export class MapComponent implements OnInit {
       });
   }
 
-  async fetchDbData() { 
+  async fetchLocations() { 
     const db = getDatabase();
     const dbRef = ref_db(db);
 
@@ -112,6 +113,7 @@ export class MapComponent implements OnInit {
 
   openBlogPost(locationId: string){
     console.log('id', locationId);
+    this.showBlogPost = true;
   }
 
 }
