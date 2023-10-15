@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Map } from 'mapbox-gl';
+import { Map, NavigationControl } from 'mapbox-gl';
 
 @Component({
   selector: 'app-map',
@@ -16,8 +16,9 @@ export class MapComponent implements OnInit {
     this.mapboxgl.accessToken = environment.mapbox.accessToken;
     this.map = new Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v11'
+      style: 'mapbox://styles/mapbox/outdoors-v11'
     });
+    this.map.addControl(new NavigationControl());
 }
 
 }
