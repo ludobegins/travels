@@ -1,40 +1,47 @@
-<h1>{{ title }}</h1>
-<h3>{{ subtitle }}</h3>
-<h4> {{ date }}</h4>
-<div>{{ txt1 }}</div>
-<div class="carousel" data-ride="carousel">
-    <div class="carousel-inner">
-      <img src="{{ getSlide(imgs1, i1, 1) }}" alt="slide" />
+<section class="content">
+    <h1>{{ title }}</h1>
+    <h3>{{ subtitle }}</h3>
+    <h4> {{ date }}</h4>
+    <div class="txt-imgs">
+        <div>{{ txt1 }}</div>
+        <div class="carousel" data-ride="carousel">
+            <div class="carousel-inner">
+              <img src="{{ getSlide(imgs1, i1, 1) }}" alt="slide" />
+            </div>
+            <button (click)="getPrev(imgs1, i1, 1)">
+                <i class="fa fa-arrow-circle-left btn-carousel"></i>
+            </button>
+            <button (click)="getNext(imgs1, i1, 1)">
+                <i class="fa fa-arrow-circle-right btn-carousel next"></i>
+            </button>
+        </div>
+        <div>{{ txt2 }}</div>
+        <div class="carousel" data-ride="carousel">
+            <div class="carousel-inner">
+              <img src="{{ getSlide(imgs2, i2, 2) }}" alt="slide" />
+            </div>
+            <button (click)="getPrev(imgs2, i2, 2)">
+                <i class="fa fa-arrow-circle-left btn-carousel"></i>
+            </button>
+            <button (click)="getNext(imgs2, i2, 2)">
+                <i class="fa fa-arrow-circle-right btn-carousel next"></i>
+            </button>
+        </div>
+        <div>{{ txt3 }}</div>
+        <div class="carousel" data-ride="carousel">
+            <div class="carousel-inner">
+              <img src="{{ getSlide(imgs3, i3, 3) }}" alt="slide" />
+            </div>
+            <button (click)="getPrev(imgs3, i3, 3)">
+                <i class="fa fa-arrow-circle-left btn-carousel"></i>
+            </button>
+            <button (click)="getNext(imgs3, i3, 3)">
+                <i class="fa fa-arrow-circle-right btn-carousel next"></i>
+            </button>
+        </div>
+        <div>{{ txt4 }}</div>
     </div>
-    <button (click)="getPrev(imgs1, i1, 1)">
-        <i class="fa fa-arrow-circle-left btn-carousel"></i>
-    </button>
-    <button (click)="getNext(imgs1, i1, 1)">
-        <i class="fa fa-arrow-circle-right btn-carousel next"></i>
-    </button>
+</section>
+<div class="close-btn">
+    <i class="fa fa-window-close"></i>
 </div>
-<div>{{ txt2 }}</div>
-<div class="carousel" data-ride="carousel">
-    <div class="carousel-inner">
-      <img src="{{ getSlide(imgs2, i2, 2) }}" alt="slide" />
-    </div>
-    <button (click)="getPrev(imgs2, i2, 2)">
-        <i class="fa fa-arrow-circle-left btn-carousel"></i>
-    </button>
-    <button (click)="getNext(imgs2, i2, 2)">
-        <i class="fa fa-arrow-circle-right btn-carousel next"></i>
-    </button>
-</div>
-<div>{{ txt3 }}</div>
-<div class="carousel" data-ride="carousel">
-    <div class="carousel-inner">
-      <img src="{{ getSlide(imgs3, i3, 3) }}" alt="slide" />
-    </div>
-    <button (click)="getPrev(imgs3, i3, 3)">
-        <i class="fa fa-arrow-circle-left btn-carousel"></i>
-    </button>
-    <button (click)="getNext(imgs3, i3, 3)">
-        <i class="fa fa-arrow-circle-right btn-carousel next"></i>
-    </button>
-</div>
-<div>{{ txt4 }}</div>

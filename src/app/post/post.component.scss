@@ -8,6 +8,17 @@
     z-index: 11;
   }
 
+.content {
+  margin: 0 auto;
+  width: 50%;
+}
+
+.txt-imgs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .carousel {
   position: relative;
   width: 50%;
@@ -30,4 +41,12 @@
 
 .next {
   right: 0;
+}
+
+.close-btn {
+  position: absolute;
+  font-size: 28px;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
 }
