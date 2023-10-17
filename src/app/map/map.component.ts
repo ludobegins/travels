@@ -39,21 +39,9 @@ export class MapComponent implements OnInit {
   private storage: any;
   public showBlogPost: boolean = false;
 
-  public imgs1 = [
-    'https://ep01.epimg.net/elcomidista/imagenes/2022/10/31/articulo/1667206537_604382_1667230832_noticia_normal.jpg',
-    'https://storage.googleapis.com/css-photos/menu-photos/1d2d5a63-1603-473b-9464-e8fa6787f40b.jpeg',
-    'https://ep01.epimg.net/elcomidista/imagenes/2022/01/11/receta/1641893642_902475_1641893828_noticia_normal.jpg',
-  ];
-  public imgs2 = [
-    'https://ep01.epimg.net/elcomidista/imagenes/2022/10/31/articulo/1667206537_604382_1667230832_noticia_normal.jpg',
-    'https://storage.googleapis.com/css-photos/menu-photos/1d2d5a63-1603-473b-9464-e8fa6787f40b.jpeg',
-    'https://ep01.epimg.net/elcomidista/imagenes/2022/01/11/receta/1641893642_902475_1641893828_noticia_normal.jpg',
-  ];
-  public imgs3 = [
-    'https://ep01.epimg.net/elcomidista/imagenes/2022/10/31/articulo/1667206537_604382_1667230832_noticia_normal.jpg',
-    'https://storage.googleapis.com/css-photos/menu-photos/1d2d5a63-1603-473b-9464-e8fa6787f40b.jpeg',
-    'https://ep01.epimg.net/elcomidista/imagenes/2022/01/11/receta/1641893642_902475_1641893828_noticia_normal.jpg',
-  ];
+  public imgs1!: string[];
+  public imgs2!: string[]; 
+  public imgs3!: string[];
   
   async ngOnInit() {
     this.mapConfig();
@@ -119,7 +107,7 @@ export class MapComponent implements OnInit {
     const listRef = ref_storage(this.storage, `locations/${locationId}`);
 
     let imgPath = '';
-    let res = await listAll(listRef)
+    let res = await listAll(listRef);
     res.items.forEach((itemRef) => {
       imgPath = itemRef.fullPath
     });
@@ -128,9 +116,26 @@ export class MapComponent implements OnInit {
     return url;
   }
 
-  openBlogPost(postId: number){
+  async openBlogPost(postId: number){
     console.log('post id', postId);
+    this.storage = getStorage(this.app);
+    this.imgs1 = await this.getPostImgsUrls(postId, 1);
+    this.imgs2 = await this.getPostImgsUrls(postId, 2);
+    this.imgs3 = await this.getPostImgsUrls(postId, 3);
     this.showBlogPost = true;
+  }
+
+  async getPostImgsUrls(postId: number, sectionNumber: number): Promise<string[]> {
+    const imgPromises: Promise<string>[] = [];
+    const listRef = ref_storage(this.storage, `posts/${postId}/${sectionNumber}`);
+    const res = await listAll(listRef);
+    res.items.forEach((itemRef) => {
+      const imgPath = itemRef.fullPath;
+      const urlPromise = getDownloadURL(ref_storage(this.storage, imgPath));
+      imgPromises.push(urlPromise);
+    });
+    const imgsUrls = await Promise.all(imgPromises);
+    return imgsUrls;
   }
 
 }
