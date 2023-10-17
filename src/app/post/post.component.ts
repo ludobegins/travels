@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { getDatabase, ref as ref_db, get, child } from "firebase/database"; // https://firebase.google.com/docs/database/web/start
 
 @Component({
@@ -11,6 +11,7 @@ export class PostComponent implements OnInit {
   @Input() imgs1!: string[];
   @Input() imgs2!: string [];
   @Input() imgs3!: string[];
+  @Output() closePostEvent = new EventEmitter<boolean>;
 
   public title: string = '';
   public subtitle: string = '';
@@ -75,6 +76,10 @@ export class PostComponent implements OnInit {
         this.i3 = i;
         break;
     }
+  };
+
+  closePost(){
+    this.closePostEvent.emit(false);
   }
 
 }
