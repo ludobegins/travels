@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { getDatabase, ref as ref_db, onValue, get, child } from "firebase/database"; // https://firebase.google.com/docs/database/web/start
 import { getStorage, ref as ref_storage, listAll, getDownloadURL } from "firebase/storage";
 
@@ -8,6 +8,10 @@ import { getStorage, ref as ref_storage, listAll, getDownloadURL } from "firebas
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
+
+  @Input() imgs1!: string[];
+  @Input() imgs2!: string [];
+  @Input() imgs3!: string[];
 
   public title: string = '';
   public subtitle: string = '';
@@ -20,22 +24,6 @@ export class PostComponent implements OnInit {
   public i1 = 0;
   public i2 = 0;
   public i3 = 0;
-
-  public imgs1 = [
-    'https://ep01.epimg.net/elcomidista/imagenes/2022/10/31/articulo/1667206537_604382_1667230832_noticia_normal.jpg',
-    'https://storage.googleapis.com/css-photos/menu-photos/1d2d5a63-1603-473b-9464-e8fa6787f40b.jpeg',
-    'https://ep01.epimg.net/elcomidista/imagenes/2022/01/11/receta/1641893642_902475_1641893828_noticia_normal.jpg',
-  ];
-  public imgs2 = [
-    'https://ep01.epimg.net/elcomidista/imagenes/2022/10/31/articulo/1667206537_604382_1667230832_noticia_normal.jpg',
-    'https://storage.googleapis.com/css-photos/menu-photos/1d2d5a63-1603-473b-9464-e8fa6787f40b.jpeg',
-    'https://ep01.epimg.net/elcomidista/imagenes/2022/01/11/receta/1641893642_902475_1641893828_noticia_normal.jpg',
-  ];
-  public imgs3 = [
-    'https://ep01.epimg.net/elcomidista/imagenes/2022/10/31/articulo/1667206537_604382_1667230832_noticia_normal.jpg',
-    'https://storage.googleapis.com/css-photos/menu-photos/1d2d5a63-1603-473b-9464-e8fa6787f40b.jpeg',
-    'https://ep01.epimg.net/elcomidista/imagenes/2022/01/11/receta/1641893642_902475_1641893828_noticia_normal.jpg',
-  ];
 
   async ngOnInit() {
     await this.fetchPostText(1);
