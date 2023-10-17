@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { getDatabase, ref as ref_db, onValue, get, child } from "firebase/database"; // https://firebase.google.com/docs/database/web/start
-import { getStorage, ref as ref_storage, listAll, getDownloadURL } from "firebase/storage";
+import { getDatabase, ref as ref_db, get, child } from "firebase/database"; // https://firebase.google.com/docs/database/web/start
 
 @Component({
   selector: 'app-post',
