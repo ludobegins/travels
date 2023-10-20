@@ -34,7 +34,7 @@ export class MapComponent implements OnInit {
 
   private mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
   private map!: Map;
-  private projection: Projection | any = 'naturalEarth';
+  private projection: Projection | any = 'mercator'; // ideia: botao que muda projeçao pra 'globe'
   private locations!: Locations;
   private app: any;
   private storage: any;
@@ -66,7 +66,6 @@ export class MapComponent implements OnInit {
       'tileSize': 512,
       'maxzoom': 14
       });
-      // add the DEM source as a terrain layer with exaggerated height
       this.map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
       });
   }
