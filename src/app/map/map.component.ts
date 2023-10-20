@@ -39,9 +39,9 @@ export class MapComponent implements OnInit {
   private storage: any;
   public showBlogPost: boolean = false;
 
-  public imgs1!: string[];
-  public imgs2!: string[]; 
-  public imgs3!: string[];
+  public imgs1: string[] = [];
+  public imgs2: string[] = []; 
+  public imgs3: string[] = [];
   
   async ngOnInit() {
     this.mapConfig();
@@ -119,15 +119,18 @@ export class MapComponent implements OnInit {
   async openBlogPost(postId: number){
     console.log('post id', postId);
     this.storage = getStorage(this.app);
-    this.imgs1 = await this.getPostImgsUrls(postId, 1);
-    this.imgs2 = await this.getPostImgsUrls(postId, 2);
-    this.imgs3 = await this.getPostImgsUrls(postId, 3);
+    const imgUrls = await this.getPostImgsUrls(postId);
+    imgUrls.forEach((url) => {
+      if (url.includes('2F1_')) this.imgs1.push(url);
+      if (url.includes('2F2_')) this.imgs2.push(url);
+      if (url.includes('2F3_')) this.imgs3.push(url);
+    });
     this.showBlogPost = true;
   }
 
-  async getPostImgsUrls(postId: number, sectionNumber: number): Promise<string[]> {
+  async getPostImgsUrls(postId: number): Promise<string[]> {
     const imgPromises: Promise<string>[] = [];
-    const listRef = ref_storage(this.storage, `posts/${postId}/${sectionNumber}`);
+    const listRef = ref_storage(this.storage, `posts/${postId}`);
     const res = await listAll(listRef);
     res.items.forEach((itemRef) => {
       const imgPath = itemRef.fullPath;
