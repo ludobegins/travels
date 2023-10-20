@@ -9,3 +9,44 @@ html, body {
     box-sizing: border-box;
     margin: 0;
 }
+
+
+// POPUPS
+
+.mapboxgl-popup-content {
+    border-radius: 10px;
+}
+
+.location-popup h1 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.popup-img{
+    margin: 5px 0;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.open-post-btn {
+  background-color: #FAFBFC;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  color: #24292E;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top:5px;
+  padding: 6px 16px;
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+}
+
+.open-post-btn:hover {
+  background-color: #F3F4F6;
+  transition-duration: 0.1s;
+}
+
+.open-post-btn:focus {
+  outline: 1px transparent;
+}

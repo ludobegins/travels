@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Map, NavigationControl, Marker, Popup } from 'mapbox-gl'
+import { Map, NavigationControl, Marker, Popup, Projection } from 'mapbox-gl'
 import { firebaseConfig } from '../../../env'
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref as ref_db, onValue, get, child } from "firebase/database"; // https://firebase.google.com/docs/database/web/start
@@ -34,6 +34,7 @@ export class MapComponent implements OnInit {
 
   private mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
   private map!: Map;
+  private projection: Projection | any = 'naturalEarth';
   private locations!: Locations;
   private app: any;
   private storage: any;
@@ -54,7 +55,8 @@ export class MapComponent implements OnInit {
     this.mapboxgl.accessToken = environment.mapbox.accessToken;
     this.map = new Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/outdoors-v11'
+      style: 'mapbox://styles/mapbox/outdoors-v11',
+      projection: this.projection,
     });
     this.map.addControl(new NavigationControl());
     this.map.on('style.load', () => {
@@ -85,10 +87,10 @@ export class MapComponent implements OnInit {
     for (let id of Object.keys(this.locations)){
       const imgUrl = await this.getLocationImgUrl(id);
 
-      const innerHtmlContent = `<h1>${this.locations[id].name}</h1><img width="200" height="120" src=${imgUrl}> <div>${this.locations[id].description}</div> <h4>Primeira visita: ${this.locations[id].date}<\h4>`;
+      const innerHtmlContent = `<h1>${this.locations[id].name}</h1><img class="popup-img" src=${imgUrl}> <div>${this.locations[id].description}</div> <h4>Primeira visita: ${this.locations[id].date}<\h4>`;
       const popupDivElement = document.createElement('div');
       const openTxtBtn = document.createElement('div');
-      openTxtBtn.innerHTML = `<button class="btn btn-success btn-simple text-white"> Abrir texto</button>`;
+      openTxtBtn.innerHTML = `<button class="open-post-btn"> Abrir texto</button>`;
       popupDivElement.innerHTML = innerHtmlContent;
       popupDivElement.appendChild(openTxtBtn);
       openTxtBtn.addEventListener('click', (e) => {
@@ -97,7 +99,7 @@ export class MapComponent implements OnInit {
 
       const marker = new Marker()
         .setLngLat([this.locations[id].coordinates.longitude, this.locations[id].coordinates.latitude])
-        .setPopup(new Popup().setDOMContent(popupDivElement))
+        .setPopup(new Popup({ className: "location-popup" }).setDOMContent(popupDivElement))
         .addTo(this.map);
     }
   };
