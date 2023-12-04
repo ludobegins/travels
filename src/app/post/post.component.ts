@@ -13,13 +13,13 @@ export class PostComponent implements OnInit {
   @Input() imgs3!: string[];
   @Output() closePostEvent = new EventEmitter<boolean>;
 
-  public title: string = '';
-  public subtitle: string = '';
-  public date: string = '';
-  public txt1: string = '';
-  public txt2: string = '';
-  public txt3: string = '';
-  public txt4: string = '';
+  public title = '';
+  public subtitle = '';
+  public date = '';
+  public txt1 = '';
+  public txt2 = '';
+  public txt3 = '';
+  public txt4 = '';
 
   public i1 = 0;
   public i2 = 0;

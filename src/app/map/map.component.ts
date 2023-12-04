@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment';
 import { Map, NavigationControl, Marker, Popup, Projection } from 'mapbox-gl'
 import { firebaseConfig } from '../../../env'
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref as ref_db, onValue, get, child } from "firebase/database"; // https://firebase.google.com/docs/database/web/start
+import { getDatabase, ref as ref_db, get, child } from "firebase/database"; // https://firebase.google.com/docs/database/web/start
 import { getStorage, ref as ref_storage, listAll, getDownloadURL } from "firebase/storage";
 
 interface Location {
@@ -122,6 +122,7 @@ export class MapComponent implements OnInit {
     this.storage = getStorage(this.app);
     const imgUrls = await this.getPostImgsUrls(postId);
     imgUrls.forEach((url) => {
+      // ta gambi
       if (url.includes('2F1_')) this.imgs1.push(url);
       if (url.includes('2F2_')) this.imgs2.push(url);
       if (url.includes('2F3_')) this.imgs3.push(url);
