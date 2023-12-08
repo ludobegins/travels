@@ -55,7 +55,7 @@ export class MapComponent implements OnInit {
     this.mapboxgl.accessToken = environment.mapbox.accessToken;
     this.map = new Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/outdoors-v11',
+      style: 'mapbox://styles/mapbox/satellite-v9',
       projection: this.projection,
     });
     this.map.addControl(new NavigationControl());
