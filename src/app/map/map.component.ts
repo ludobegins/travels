@@ -56,8 +56,10 @@ export class MapComponent implements OnInit {
     this.mapboxgl.accessToken = environment.mapbox.accessToken;
     this.map = new Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/satellite-v9',
+      style: 'mapbox://styles/mapbox/outdoors-v12', //https://docs.mapbox.com/api/maps/styles/
       projection: this.projection,
+      center: [-10, 10],
+      zoom: 2
     });
     this.map.addControl(new NavigationControl());
     this.map.on('style.load', () => {
