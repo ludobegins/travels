@@ -43,6 +43,7 @@ export class MapComponent implements OnInit {
   public imgs1: string[] = [];
   public imgs2: string[] = []; 
   public imgs3: string[] = [];
+  public postId = 0;
   
   async ngOnInit() {
     this.mapConfig();
@@ -77,6 +78,7 @@ export class MapComponent implements OnInit {
     let snapshot = await get(child(dbRef, 'locations'));
     if (snapshot.exists()) {
       this.locations = snapshot.val();
+      console.log(this.locations)
       return;
     };
     console.warn('No locations');
@@ -93,7 +95,8 @@ export class MapComponent implements OnInit {
       popupDivElement.innerHTML = innerHtmlContent;
       popupDivElement.appendChild(openTxtBtn);
       openTxtBtn.addEventListener('click', (e) => {
-        this.openBlogPost(this.locations[id].postId);
+        this.postId = this.locations[id].postId;
+        this.openBlogPost(this.postId);
       });
 
       const marker = new Marker()
@@ -121,6 +124,7 @@ export class MapComponent implements OnInit {
     console.log('post id', postId);
     this.storage = getStorage(this.app);
     const imgUrls = await this.getPostImgsUrls(postId);
+    console.log(imgUrls)
     imgUrls.forEach((url) => {
       // ta gambi
       if (url.includes('2F1_')) this.imgs1.push(url);

@@ -2,6 +2,7 @@
 
 .env
 env.ts
+db_data.json
 
 # Compiled output
 /dist

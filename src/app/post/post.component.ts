@@ -11,6 +11,7 @@ export class PostComponent implements OnInit {
   @Input() imgs1!: string[];
   @Input() imgs2!: string [];
   @Input() imgs3!: string[];
+  @Input() postId!: number;
   @Output() closePostEvent = new EventEmitter<boolean>;
 
   public title = '';
@@ -26,7 +27,7 @@ export class PostComponent implements OnInit {
   public i3 = 0;
 
   async ngOnInit() {
-    await this.fetchPostText(1);
+    await this.fetchPostText(this.postId);
   }
 
   async fetchPostText(postId: number) { 
